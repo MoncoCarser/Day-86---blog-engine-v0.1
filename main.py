@@ -1,44 +1,42 @@
 from flask import Flask, redirect, render_template, session, request
 from replit import db
 import os
-import datetime
-import json
 
 app = Flask(__name__)
 app.secret_key = os.environ['session_key']
 
 
-#db["Pasi"] = {"password": "pass123"}
+#db["user"] = {"username": "Pasi", "password": "pass123"}
 
 #main page
     #view blog posts as a long list
 
-def database_printer():
+def panties_for_yoshi():
     entry = ""
-    f = open("template.html", "r")
+    f = open("./templates/template.html", "r")
     entry = f.read()
     f.close()
     keys = db.keys()
     keys = list(keys)
     content = ""
-    for key in reversed(keys):
-        this_entry = entry
-        if key != "Pasi":
-            this_entry = this_entry.replace("{title}", db[key]["title"])
-            this_entry = this_entry.replace("{body}", db[key]["blog_text"])
-            content += this_entry
+    for key in reversed(sorted(keys)):
+        thisEntry = entry
+        if key != "user":
+            thisEntry = thisEntry.replace("{title}", db[key]["title"])
+            thisEntry = thisEntry.replace("{date}", db[key]["date"])
+            thisEntry = thisEntry.replace("{body}", db[key]["body"])
+            content += thisEntry
     return content
-
 
 @app.route('/') 
 def index():  
     if session.get("logged_in"):
         return redirect("/blog_writer")
     page = ""
-    f = open("mainpage.html", "r")
+    f = open("./templates/mainpage.html", "r")
     page = f.read()
     f.close()
-    page = page.replace("{blog_printer}", database_printer())
+    page = page.replace("{blog_printer}", panties_for_yoshi())
     return page
 
 
@@ -54,28 +52,19 @@ def log_in():
         return redirect("/blog_writer")
     try:
         form = request.form
-        keys = db.keys() 
-        username = form["username"]
-        password = db[username]["password"]
-        if form["username"] in keys:
-            if form["password"] == password:
-                session["logged_in"] = True
-                session["name"] = username
-                return redirect("/blog_writer")
-            else: 
-               return redirect("/")
+        if form["username"] == db["user"]["username"] and form["password"] == db["user"]["password"]:
+            session["logged_in"] = True
+            return redirect("/blog_writer")
         else: 
-            return redirect("/")
+           return redirect("/")
     except:    
         return redirect("/")
 
 @app.route("/blog_saved", methods=["POST"])
 def blog_saved():
     form = request.form
-    date = datetime.datetime.now()
-    title = form["blog_title"]
-    blog_text = form["blog_text"]
-    db[date] = {"title": title, "blog_text": blog_text}
+    entry = {"title": form["blog_title"], "date" : form["date"], "body": form["blog_text"]}
+    db[form["date"]] = entry
     return redirect("/blog_writer")
 
 
