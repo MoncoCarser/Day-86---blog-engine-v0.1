@@ -1,0 +1,56 @@
+body {
+    background-color: #4395cb;
+    background-image: url("yoshi.webp");
+    background-repeat: no-repeat;
+    margin-left: 0px;
+    color: white;
+}
+
+img {
+    float: left;
+    margin-left: 0px;
+}
+
+.top_row {
+    display: flex;
+    flex-direction: row;
+}
+
+h1 {
+    float:left;
+    font-family: Garamond;
+    font-size: 2em;
+    padding: 20px;
+    margin: 0px
+}
+
+
+.log_in_out {
+    float:right;
+    position: absolute;
+    right: 0;
+    padding: 20px;
+}
+
+.blog_box .title_submit {
+    display:flex;
+    justify-content: center;
+}
+
+.title_submit {
+    display: flex;
+    flex-firection: row
+}
+
+.textbox {
+    display:flex;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+.blog_text_printer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

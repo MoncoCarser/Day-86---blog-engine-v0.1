@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="./static/style.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Write your blog</title>
+</head>
+<body>
+    
+    <div class="top_row">
+        <h1>Write your blog for the world to see</h1>
+        
+            <div class="log_in_out">
+            <button type="button" onClick="location.href='/log_out'">Log out</button>
+                
+            </div>
+    </div>
+
+        <div class = "blog_box">
+                <div class = "title_submit">
+                    <form action="/blog_saved" id="blog_form" method="POST">
+                      Title: <input type="text" name="blog_title">
+                      <input type="submit">
+                    </form>
+                </div>
+            
+                <div class = "textbox">
+                <textarea rows="4" cols="50" name="blog_text" form="blog_form">
+                Enter blog text here...</textarea>
+                </div>
+
+            
+            
+        </div>
+
+    
+</body>
+</html>
