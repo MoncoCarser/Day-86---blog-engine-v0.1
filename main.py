@@ -5,11 +5,9 @@ import os
 app = Flask(__name__)
 app.secret_key = os.environ['session_key']
 
-
+#below is user ID to log in to Replit database as the blog's owner
 #db["user"] = {"username": "Pasi", "password": "pass123"}
 
-#main page
-    #view blog posts as a long list
 
 def panties_for_yoshi():
     entry = ""
